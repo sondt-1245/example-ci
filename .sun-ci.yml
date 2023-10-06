@@ -1,0 +1,12 @@
+stages:
+  - Test
+jobs:
+- name: Execute Unit Test and Upload to Codecov
+  stage: Test
+  image: python:3.11-alpine
+  script:
+  - pip install -r requirements.txt
+  - pytest --cov app
+  - curl -Os https://uploader.codecov.io/latest/linux/codecov
+  - chmod +x codecov
+  - ./codecov -t $CODECOV_TOKEN -u https://codecov.sun-asterisk.vn
